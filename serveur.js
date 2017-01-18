@@ -31,7 +31,7 @@ app.use(function(req,res,next){
     next();
 });
 
-
+/*
 app.use(session({secret: 'todotopsecret'}))
 
 .use(function(req, res, next){
@@ -39,22 +39,9 @@ app.use(session({secret: 'todotopsecret'}))
         req.session.todolist = [];
     }
     next();
-})
-.get('/todo', function(req, res) {
-    res.render('index.ejs', {todolist: req.session.todolist});
-})
-.post('/todo/ajouter/', urlencodedParser, function(req, res) {
-    if (req.body.newtodo != '') {
-    	console.log("add:" + req.body.newtodo );
-        req.session.todolist.push(req.body.newtodo);
-    }
-   res.redirect('/todo');
-})
-.get('/todo/supprimer/:id', function(req, res) {
-    if (req.params.id != '') {
-        req.session.todolist.splice(req.params.id, 1);
-    }
-    res.redirect('/todo');
+})*/
+app.get('/todo', function(req, res) {
+    res.render('index.ejs' /*,{todolist: req.session.todolist}*/);
 })
 .post('/saveTask', function(req, res) {
     console.log("request received");
