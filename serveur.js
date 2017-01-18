@@ -12,9 +12,25 @@ var server = http.createServer(function(req, res) {
 var express = require('express');
 var session = require('cookie-session');
 var bodyParser = require('body-parser'); // Charge le middleware de gestion des paramètres de formulaire
+
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/nodetest');
+
+
+
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 var app = express();
+
 app.use(express.static('./public'));
+
+
+// Make our db accessible to our router
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
 
 app.use(session({secret: 'todotopsecret'}))
 
@@ -24,8 +40,8 @@ app.use(session({secret: 'todotopsecret'}))
     }
     next();
 })
-.get('/todo', function(req, res) { 
-    res.render('todo.ejs', {todolist: req.session.todolist});
+.get('/todo', function(req, res) {
+    res.render('index.ejs', {todolist: req.session.todolist});
 })
 .post('/todo/ajouter/', urlencodedParser, function(req, res) {
     if (req.body.newtodo != '') {
@@ -39,6 +55,18 @@ app.use(session({secret: 'todotopsecret'}))
         req.session.todolist.splice(req.params.id, 1);
     }
     res.redirect('/todo');
+})
+.post('/saveTask', function(req, res) {
+    console.log("request received");
+    //code metier
+    //......
+    var db = req.db;
+    var collection = db.get('usercollection');
+    var datas = collection.find({}, {}, function(e,docs){
+    // code retour
+    res.send({  data: docs,
+                codeRetour: "OK" });
+    });
 });
 
 
