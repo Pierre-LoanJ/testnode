@@ -2,3 +2,32 @@
  	display:inline;
  	background-color:green;
  }
+ .navbar-header {
+ 	display: flex;
+ }
+ .auth-form-body {
+ 	display: flex;
+ 	margin: 0.5em;
+ }
+ .auth-form-body input[type=text] {
+ 	width: 10em;
+ 	margin: 0.2em;
+ }
+ .auth-form-body input[type=password] {
+ 	width: 10em;
+ 	margin: 0.2em;
+ }
+.auth-form-body label {
+	color: rgba(255, 255, 255, 0.7);
+	margin-top: 0.5em;
+}
+.signInPswFields {
+	display: inline-block;
+}
+
+.submitSignInForm {
+	margin-left: 1em;
+	margin-top: 0.2em;
+	height: 2.5em;
+ }
+

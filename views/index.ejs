@@ -33,7 +33,7 @@
     <![endif]-->
 
      <link rel="stylesheet" href="../style.css">
-    
+
 </head>
 
 <body id="page-top">
@@ -46,11 +46,34 @@
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand page-scroll" href="#page-top">Start Bootstrap</a>
+
+
+
+                <form accept-charset="UTF-8" id="signInForm" style="display:none" action="/login" method="post">
+                    <div class="auth-form-body">
+                        <label for="login_field">Username</label>
+                        <input autocapitalize="off" autocorrect="off" autofocus="autofocus" class="form-control input-block" id="login_field" name="login" tabindex="1" type="text" />
+                        <div class="signInPswFields">
+                            <label for="password">Password</label>
+                            <a href="/password_reset" class="label-link">Forgot password?</a>
+                        </div>
+                        
+                        <input class="form-control form-control input-block" id="password" name="password" tabindex="2" type="password" />
+                        <input class="submitSignInForm btn btn-primary" data-disable-with="Signing in…" name="commit" tabindex="3" type="submit" value="Sign in" />
+                    </div>
+                </form>
             </div>
+
+
+            
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="page-scroll" id="signInButton">Sign In</a>
+                    </li>
+
                     <li>
                         <a class="page-scroll" href="#about">About</a>
                     </li>

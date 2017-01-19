@@ -17,3 +17,22 @@ console.log("retour: " + response.codeRetour);
 			$('.mydiv').append("<p>" + response.data[0].username + "<p>");
 		});
 	});
+
+$('#signInButton').click( function(e) {
+	e.preventDefault();
+	$('#signInForm').css('display','inline');
+});
+
+/*$('.submitSignInForm').click( function(e) {
+	e.preventDefault();
+	var $user = $('')
+		$.ajax({
+			type: "POST",
+			url: "login",
+			data: {
+				user: user,
+				psw: psw
+			}
+		}).done(function(response) {});
+});
+*/
