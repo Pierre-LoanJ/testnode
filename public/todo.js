@@ -18,10 +18,16 @@ console.log("retour: " + response.codeRetour);
 		});
 	});
 
-$('#signInButton').click( function(e) {
+$('#_signInButton').click( function(e) {
 	e.preventDefault();
-	$('#signInForm').css('display','inline');
+	$.ajax({
+			type: "GET",
+			url: "/login"
+		}).done(function(response) {});
+	//$('#signInForm').css('display','inline'); //si le login est sur la meme page
 });
+
+
 
 /*$('.submitSignInForm').click( function(e) {
 	e.preventDefault();

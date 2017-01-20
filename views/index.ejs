@@ -52,7 +52,7 @@
                 <form accept-charset="UTF-8" id="signInForm" style="display:none" action="/login" method="post">
                     <div class="auth-form-body">
                         <label for="login_field">Username</label>
-                        <input autocapitalize="off" autocorrect="off" autofocus="autofocus" class="form-control input-block" id="login_field" name="login" tabindex="1" type="text" />
+                        <input autocapitalize="off" autocorrect="off" autofocus="autofocus" class="form-control input-block" id="login_field" name="username" tabindex="1" type="text" />
                         <div class="signInPswFields">
                             <label for="password">Password</label>
                             <a href="/password_reset" class="label-link">Forgot password?</a>
@@ -71,9 +71,11 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" id="signInButton">Sign In</a>
+                        <a class="page-scroll" href="/login" id="signInButton">Sign in</a>
                     </li>
-
+                     <li>
+                        <a class="page-scroll" href="/signup" id="signUpButton">Sign up</a>
+                    </li>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
                     </li>
