@@ -7,6 +7,8 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "connect-flash": "^0.1.1",
+    "fs": "0.0.1-security",
+    "log4js": "^1.1.0",
     "mongoose": "^4.7.7",
     "morgan": "^1.7.0",
     "node-inspector": "^0.12.8",
