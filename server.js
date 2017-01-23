@@ -22,11 +22,12 @@ mongoose.connect(configDB.url); // connect to our database
 
 require('./config/passport')(passport); // pass passport for configuration
 
-var log = require('./logs/config.js');
-log.loggerinfo.info('This is another Information');
-//console.log("before debug");
-//debugger;
-//console.log("after debug");
+var logger = require('./logs/config.js');
+logger.info('server info');
+logger.warn('server Warning');
+logger.debug('server Debugging info');
+logger.debug('server more and more');
+
 // set up our express application
 app.use(express.static('./public'));
 app.use(morgan('dev')); // log every request to the console

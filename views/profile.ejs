@@ -5,6 +5,9 @@
     <title>Node Authentication</title>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+
+
+     <link rel="stylesheet" href="../profile.css">
     <style>
         body        { padding-top:80px; word-wrap:break-word; }
     </style>
@@ -18,10 +21,55 @@
     </div>
 
     <div class="row">
-
-        <!-- LOCAL INFORMATION -->
+	    <div class="profile-sidebar">
+			
+			<div class="profile-userpic">
+				<img src="http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg" class="img-responsive" alt="">
+			</div>
+			
+			<div class="profile-usertitle">
+				<div class="profile-usertitle-name">
+					Marcus Doe
+				</div>
+				<div class="profile-usertitle-job">
+					Developer
+				</div>
+			</div>
+			
+			<div class="profile-userbuttons">
+				<button type="button" class="btn btn-success btn-sm">Follow</button>
+				<button type="button" class="btn btn-danger btn-sm">Message</button>
+			</div>
+			
+			<div class="profile-usermenu">
+				<ul class="nav">
+					<li class="overview active">
+						<a href="#">
+						<i class="glyphicon glyphicon-home"></i>
+						Overview </a>
+					</li>
+					<li class="settings">
+						<a href="#">
+						<i id="settings" class="glyphicon glyphicon-user"></i>
+						Account Settings </a>
+					</li>
+					<li>
+						<a href="#" target="">
+						<i class="glyphicon glyphicon-ok tasks"></i>
+						Tasks </a>
+					</li>
+					<li>
+						<a href="#">
+						<i class="glyphicon glyphicon-flag help"></i>
+						Help </a>
+					</li>
+				</ul>
+			</div>
+			
+		</div>
+       
         <div class="col-sm-6">
-            <div class="well">
+            <div class="overview-bloc">
                 <h3><span class="fa fa-user"></span> Local</h3>
 
                     <p>
@@ -36,5 +84,14 @@
     </div>
 
 </div>
+<div class="settings-bloc">
+	<p/>your name
+	<p/>your job
+</div>
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="text/javascript" src="../profile.js"></script>
 </body>
 </html>

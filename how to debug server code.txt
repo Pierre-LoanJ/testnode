@@ -1,0 +1,15 @@
+1-  open a command prompt and run the following command:
+	node-inspector --web-port=3030 (server app port)
+
+2- open another command prompt and run the following command:
+	node --inspect --debug-brk server.js
+
+3- browse to the given URL in the second command prompt log on screen
+
+4- press F8 to make the server run
+
+5- eventually put others breakpoints
+
+6- browse on another tab to your app (address and port defined in 1-)
+
+7- see server execution stops on breakpoints defined on step 5-

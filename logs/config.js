@@ -1,40 +1,29 @@
-var log4js = require('log4js'); // include log4js
-var fs = require('fs');
-
-log4js.configure({ // configure to use all types in different files.
-    appenders: [
-        {   type: 'file',
-            filename: "/logs/error.log", // specify the path where u want logs folder error.log
-            category: 'error',
-            maxLogSize: 20480,
-            backups: 10
-        },
-        {   type: "file",
-            filename: "/logs/info.log", // specify the path where u want logs folder info.log
-            category: 'info',
-            maxLogSize: 20480,
-            backups: 10
-        },
-        {   type: 'file',
-            filename: "/logs/debug.log", // specify the path where u want logs folder debug.log
-            category: 'debug',
-            maxLogSize: 20480,
-            backups: 10
-        }
-    ]
-});
-
-var loggerinfo = log4js.getLogger('info'); // initialize the var to use.
-var loggererror = log4js.getLogger('error'); // initialize the var to use.
-var loggerdebug = log4js.getLogger('debug'); // initialize the var to use.
-
-loggerinfo.info('This is Information Logger');
-loggererror.info('This is Error Logger');
-loggerdebug.info('This is Debugger');
-
-var log = {
-    loggerinfo : loggerinfo,
-    loggererror : loggererror,
-    loggerdebug : loggerdebug
+const winston = require('winston');
+const fs = require('fs');
+const env = 'development'    //process.env.NODE_ENV || 'development';
+const logDir = './logs';
+// Create the log directory if it does not exist
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
 }
-module.exports = log;
+const tsFormat = () => (new Date()).toLocaleTimeString();
+const logger = new (winston.Logger)({
+  transports: [
+    // colorize the output to the console
+    new (winston.transports.Console)({
+      timestamp: tsFormat,
+      colorize: true,
+      level: 'info'
+    }),
+    new (winston.transports.File)({
+      filename: `${logDir}/log.js`,
+      timestamp: tsFormat,
+      level: env === 'development' ? 'debug' : 'info'
+    })
+  ]
+});
+logger.info('Hello world');
+logger.warn('Warning message');
+logger.debug('Debugging info');
+
+module.exports = logger;
