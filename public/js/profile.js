@@ -1,42 +1,31 @@
 
 $(document).ready(function() {
-/*$('.profile-usermenu .settings').click( function(e) {
-	e.preventDefault();
-	$('.col-sm-6').html($(".settings-bloc"));
-	$( ".settings-bloc" ).css("display", "flex");
-	});
-
-$('.profile-usermenu .overview').click( function(e) {
-	e.preventDefault();
-	$('.col-sm-6').html($(".well"));
-	$( ".settings-bloc" ).css("display", "none");
-	$( ".well" ).css("display", "flex");
-	});
-*/
-
-//$(function() {
    $('li').click(function() {
 
-   	var oldEntireClass = $('.active')[0].className;
-   	//var indexOfActive = oldEntireClass.indexOf('active');
-   	var oldShortClass = oldEntireClass.replace('active', '').trim()
-   	var classLabel = $(this).attr('class');
-   	var contentLabel = classLabel.substring('active').trim() + '-bloc';
+   	var oldLongClass = $('.active')[0].className;
+   	var oldShortClass = oldLongClass.replace('active', '').trim()
+   	var clkClass = $(this).attr('class');
+   	var lnkCntBloc = clkClass.substring('active').trim() + '-bloc';
 
-	var oldContent = $('.col-sm-6').html();
-	$('.col-sm-6').html($('.' + contentLabel));
-	$('.col-sm-6').append(oldContent);
+   	//affiche le bloc lié cliqué et cache l'ancien
 	$('.' + oldShortClass + '-bloc').css('display', 'none');
-	$('.' + contentLabel).css('display', 'flex');
-   	      // remove classes from all
+	$('.' + lnkCntBloc).css('display', 'block');
+
+	// gère la nav - remove classes from all and add class to the one we clicked
       $('li').removeClass('active');
-      // add class to the one we clicked
       $(this).addClass('active');
    });
-//});
+
+	$('.changeProfilePic').click(function() {
+		$('#prizePopup').modal('toggle');
+		$('#prizePopup').modal('show');
+		//$('#prizePopup').modal('hide');
+	});
 
 
 });
+
+
 
 
 

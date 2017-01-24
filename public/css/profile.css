@@ -27,6 +27,8 @@ body {
   -webkit-border-radius: 50% !important;
   -moz-border-radius: 50% !important;
   border-radius: 50% !important;
+
+  max-width: 20em;
 }
 
 .profile-usertitle {

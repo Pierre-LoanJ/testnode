@@ -14,6 +14,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 
+var path = require('path');
+var formidable = require('formidable');
+
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
@@ -23,10 +26,12 @@ mongoose.connect(configDB.url); // connect to our database
 require('./config/passport')(passport); // pass passport for configuration
 
 var logger = require('./logs/config.js');
+/*
 logger.info('server info');
 logger.warn('server Warning');
 logger.debug('server Debugging info');
 logger.debug('server more and more');
+*/
 
 // set up our express application
 app.use(express.static('./public'));

@@ -22,8 +22,9 @@ const logger = new (winston.Logger)({
     })
   ]
 });
-logger.info('Hello world');
-logger.warn('Warning message');
-logger.debug('Debugging info');
+
+logger.info('init logger info');
+logger.warn('init logger warning');
+logger.debug('init logger debug');
 
 module.exports = logger;
