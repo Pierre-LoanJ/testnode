@@ -1,7 +1,11 @@
 // app/routes.js
 var formidable = require('formidable');
-var path = require('path');
-var fs = require('fs');
+var path       = require('path');
+var fs         = require('fs');
+var body       = require('body-parser');
+var User       = require('../models/user');
+var logger = require('../logs/config.js');
+
 module.exports = function(app, passport) {
 
     // =====================================
@@ -93,6 +97,57 @@ module.exports = function(app, passport) {
       form.parse(req);
 
     });
+     app.post('/profile/infos/update', function(req, res){
+
+        var name = req.body.name;
+        var job  = req.body.job;
+
+        var id = req.session.passport.user;
+logger.debug('/profile/infos/update ', ' bodyparser ', ' name=' + req.body.name + ', job=' + req.body.job);
+
+        User.findOne({ '_id' :  id }, function(err, res) {
+            // if there are any errors, return the error
+            if (err){
+logger.debug('/profile/infos/update ', ' User.findOne ERROR', ' err=' + err);  // NE LOG PAS 
+                return done(err);
+
+            }
+
+            // check to see if theres already a user with that email
+            if (res) {
+logger.debug('/profile/infos/update ', ' User.findOne ', ' res=' + res);
+                var local  = res.local;
+                local.name    = name;
+                local.job     = job;
+                //return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+            }
+
+                 else {
+logger.debug('/profile/infos/update ', ' User.findOne ', ' no res=' + res);
+return done(null, false, req.flash('user retrieve', 'no user found for update'));
+
+
+/*
+                // if there is no user with that email
+                // create the user
+                var newUser            = new User();
+
+                // set the user's local credentials
+                newUser.local.email    = email;
+                newUser.local.password = newUser.generateHash(password);
+
+                // save the user
+                newUser.save(function(err) {
+                    if (err)
+                        throw err;
+                    return done(null, newUser);
+                });*/
+            }
+
+        });
+
+    });
+    
 };
 
 

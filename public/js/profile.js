@@ -1,6 +1,7 @@
 
 $(document).ready(function() {
-   $('li').click(function() {
+   $('li').click(function(e) {
+   	e.preventDefault();
 
    	var oldLongClass = $('.active')[0].className;
    	var oldShortClass = oldLongClass.replace('active', '').trim()
@@ -16,9 +17,10 @@ $(document).ready(function() {
       $(this).addClass('active');
    });
 
-	$('.changeProfilePic').click(function() {
-		$('#prizePopup').modal('toggle');
-		$('#prizePopup').modal('show');
+	$('.changeProfilePic').click(function(e) {
+		e.preventDefault();
+		$('#photoUploader').modal('toggle');
+		$('#photoUploader').modal('show');
 		//$('#prizePopup').modal('hide');
 	});
 
@@ -46,29 +48,3 @@ $(document).ready(function() {
 console.log("retour: " + response.codeRetour);
 			$('.mydiv').append("<p>" + response.data[0].username + "<p>");
 		});*/
-	
-/*
-$('#_signInButton').click( function(e) {
-	e.preventDefault();
-	$.ajax({
-			type: "GET",
-			url: "/login"
-		}).done(function(response) {});
-	//$('#signInForm').css('display','inline'); //si le login est sur la meme page
-});
-*/
-
-
-/*$('.submitSignInForm').click( function(e) {
-	e.preventDefault();
-	var $user = $('')
-		$.ajax({
-			type: "POST",
-			url: "login",
-			data: {
-				user: user,
-				psw: psw
-			}
-		}).done(function(response) {});
-});
-*/

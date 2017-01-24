@@ -29,7 +29,6 @@ $('#upload-input').on('change', function(){
       contentType: false,
       success: function(data){
           console.log('upload successful!\n' + data);
-          $('#prizePopup').modal('hide').delay( 2000 ).fadeIn( 3000 );
       },
       xhr: function() {
         // create an XMLHttpRequest
@@ -50,15 +49,13 @@ $('#upload-input').on('change', function(){
             // once the upload reaches 100%, set the progress bar text to done
             if (percentComplete === 100) {
               $('.progress-bar').html('Done');
+              window.setTimeout(function() {
+              $('#photoUploader').modal('hide'); }, 800);
             }
-
           }
-
         }, false);
-
         return xhr;
       }
     });
-
   }
 });
