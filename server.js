@@ -31,6 +31,7 @@ logger.info('server info');
 logger.warn('server Warning');
 logger.debug('server Debugging info');
 logger.debug('server more and more');
+logger.error('ERROR try', 'save failed', 'err:' + "er");
 */
 
 // set up our express application

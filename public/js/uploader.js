@@ -28,7 +28,9 @@ $('#upload-input').on('change', function(){
       processData: false,
       contentType: false,
       success: function(data){
-          console.log('upload successful!\n' + data);
+          console.log('upload successful!\n');
+          d = new Date();
+          $('#profilePic').attr('src', '/uploads/profile.jpg?' + d.getTime()); //here is a trick to force image refresh
       },
       xhr: function() {
         // create an XMLHttpRequest

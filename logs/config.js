@@ -23,8 +23,9 @@ const logger = new (winston.Logger)({
   ]
 });
 /*
-logger.info('init logger info');
-logger.warn('init logger warning');
-logger.debug('init logger debug');
+logger.info('init logger    info'); vert + console
+logger.warn('init logger warning'); orange + console
+logger.debug('init logger  debug'); pas sur console
+logger.error('init logger  error'); rouge + console
 */
 module.exports = logger;

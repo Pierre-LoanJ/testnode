@@ -17,7 +17,7 @@
 <div class="container">
 
     <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
+        <h1><span class="fa fa-user"></span> Hey! It's been a while !</h1>
         <a href="/logout" class="btn btn-default btn-sm">Logout</a>
     </div>
 
@@ -26,12 +26,16 @@
 			
 			<div class="profile-userpic">
 			<!--"http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg"-->
-				<img src="img/profile_thumbnail.jpg" class="img-responsive" alt="">
+				<img src="uploads/profile.jpg" id="profilePic" class="img-responsive" alt="">
 			</div>
+
 			
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">
 					<%= user.local.name %>
+				</div>
+				<div class="profile-usertitle-email">
+					<%= user.local.email %>
 				</div>
 				<div class="profile-usertitle-job">
 					<%= user.local.job %>
@@ -40,7 +44,7 @@
 			
 			<div class="profile-userbuttons">
 				<button type="button" class="btn btn-warning btn-sm changeProfilePic">Change Photo</button>
-				<button type="button" class="btn btn-success btn-sm">Follow</button>
+				<!--button type="button" class="btn btn-success btn-sm">Follow</button-->
 				<button type="button" class="btn btn-danger btn-sm">Message</button>
 			</div>
 			
@@ -68,19 +72,21 @@
 					</li>
 				</ul>
 			</div>
-			
 		</div>
        
         <div class="col-sm-6">
             <div class="overview-bloc">
-                <h3><span class="fa fa-user"></span> Local</h3>
+                <h3><span class="fa fa-check"></span> Profile infos</h3>
                     <p>
-                        <strong>id</strong>: <%= user._id %><br>
+                        <!--strong>id</strong>: <%= user._id %><br-->
                         <strong>email</strong>: <%= user.local.email %><br>
-                        <strong>password</strong>: <%= user.local.password %>
+                        <!--strong>password</strong>: <%= user.local.password %><br-->
+                        <strong>name</strong>: <%= user.local.name %><br>
+                        <strong>job</strong>: <%= user.local.job %><br>
                     </p>
-
             </div>
+
+
             <div class="settings-bloc">
             	<form action="/profile/infos/update" method="post">
             	        <div class="overview-form">
@@ -92,7 +98,7 @@
             	            <input type="text" class="form-control" name="job">
             	        </div>
 
-            	        <button type="submit" class="btn btn-warning btn-lg">save</button>
+            	        <button type="submit" class="btn btn-warning btn-mi">save</button>
             	    </form>
             </div>
         </div>

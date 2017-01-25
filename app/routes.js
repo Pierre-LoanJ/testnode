@@ -5,6 +5,7 @@ var fs         = require('fs');
 var body       = require('body-parser');
 var User       = require('../models/user');
 var logger = require('../logs/config.js');
+var mongoose = require('mongoose');
 
 module.exports = function(app, passport) {
 
@@ -65,7 +66,9 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
-
+   /* app.get('/profile/photo', function(req, res){
+        res.render();
+    });*/
     app.post('/profile/photo/upload', function(req, res){
 
       // create an incoming form object
@@ -75,12 +78,12 @@ module.exports = function(app, passport) {
       form.multiples = true;
 
       // store all uploads in the /uploads directory
-      form.uploadDir = path.join('.', '/uploads');
+      form.uploadDir = path.join('.', 'public/uploads');
 
       // every time a file has been uploaded successfully,
       // rename it to it's orignal name
       form.on('file', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, file.name));
+        fs.rename(file.path, path.join(form.uploadDir, "profile.jpg"));
       });
 
       // log any errors that occur
@@ -90,6 +93,7 @@ module.exports = function(app, passport) {
 
       // once all the files have been uploaded, send a response to the client
       form.on('end', function() {
+        //res.redirect('/');
         res.end('success');
       });
 
@@ -103,51 +107,36 @@ module.exports = function(app, passport) {
         var job  = req.body.job;
 
         var id = req.session.passport.user;
-logger.debug('/profile/infos/update ', ' bodyparser ', ' name=' + req.body.name + ', job=' + req.body.job);
+//logger.debug('/profile/infos/update ', ' bodyparser ', ' name=' + req.body.name + ', job=' + req.body.job);
 
         User.findOne({ '_id' :  id }, function(err, res) {
             // if there are any errors, return the error
             if (err){
-logger.debug('/profile/infos/update ', ' User.findOne ERROR', ' err=' + err);  // NE LOG PAS 
+logger.error('/profile/infos/update ', ' User.findOne ERROR', ' err=' + err);  // NE LOG PAS 
                 return done(err);
 
             }
 
-            // check to see if theres already a user with that email
+            // check if document exists
             if (res) {
-logger.debug('/profile/infos/update ', ' User.findOne ', ' res=' + res);
-                var local  = res.local;
-                local.name    = name;
-                local.job     = job;
-                //return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-            }
-
-                 else {
-logger.debug('/profile/infos/update ', ' User.findOne ', ' no res=' + res);
-return done(null, false, req.flash('user retrieve', 'no user found for update'));
-
-
-/*
-                // if there is no user with that email
-                // create the user
-                var newUser            = new User();
-
-                // set the user's local credentials
-                newUser.local.email    = email;
-                newUser.local.password = newUser.generateHash(password);
-
-                // save the user
-                newUser.save(function(err) {
+                logger.debug('/profile/infos/update ', ' User.findOne ', ' res=' + res);
+                res.local.name    = name;
+                res.local.job     = job;
+                res.save(function(err) {
                     if (err)
-                        throw err;
-                    return done(null, newUser);
-                });*/
+                        logger.error('ERROR', 'save failed', 'err:' + err);
+                    else
+                        logger.info('some datas of User schema have been updated');
+                        
+                    });
             }
-
+                 else {
+                    logger.warn('/profile/infos/update ', ' User.findOne ', ' no res=' + res);
+                    return done(null, false, req.flash('user retrieve', 'no user found for update'));
+            }
         });
-
+        res.redirect('/profile');
     });
-    
 };
 
 
