@@ -20,8 +20,11 @@ var formidable = require('formidable');
 var configDB = require('./config/database.js');
 
 // configuration ===============================================================
-mongoose.connect(configDB.url); // connect to our database
-
+var MONGO_DB;
+var DOCKER_DB = process.env.DB_PORT;
+	//mongoose.connect(configDB.url); // connect to our database
+	console.log("DOCKER DB");
+	mongoose.connect(configDB.url);
 
 require('./config/passport')(passport); // pass passport for configuration
 
