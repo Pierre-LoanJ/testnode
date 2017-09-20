@@ -126,11 +126,21 @@ body {
 
   display: none;
 }
+.settings-bloc label {
+  text-align : left;
+}
+.settings-bloc .form-control {
+  width: 10em;
+}
 .settings-bloc .btn {
   margin: 0.5em;
+  display: block;
+  float: right;
+
 }
 .overview-bloc p  {
  text-align: left;
+ padding-left: 6em;
 }
 
 
@@ -142,11 +152,13 @@ body {
 }
 
 .overview-form {
-
+  margin: 2em;
   width : 15em;
 }
 
 .overview-form label {
- 
   width : 15em;
+}
+.overview-form .btn .btn-warning .btn-mi {
+  
 }

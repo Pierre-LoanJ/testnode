@@ -14,12 +14,14 @@ $('#upload-input').on('change', function(){
     var formData = new FormData();
 
     // loop through all the selected files and add them to the formData object
-    for (var i = 0; i < files.length; i++) {
+    /*for (var i = 0; i < files.length; i++) {
       var file = files[i];
 
       // add the files to formData object for the data payload
-      formData.append('uploads[]', file, file.name);
-    }
+      formData.append('image', file, file.name);
+      formData.set('image', file, file.name);
+    }*/
+     formData.set('file', files[0], files[0].name);
 
     $.ajax({
       url: '/profile/photo/upload',
@@ -30,7 +32,8 @@ $('#upload-input').on('change', function(){
       success: function(data){
           console.log('upload successful!\n');
           d = new Date();
-          $('#profilePic').attr('src', '/uploads/profile.jpg?' + d.getTime()); //here is a trick to force image refresh
+          let userId = data.userProfilePicture;
+          $('#profilePic').attr('src', '/uploads/profile_'+ userId + '.jpg?' + d.getTime());
       },
       xhr: function() {
         // create an XMLHttpRequest

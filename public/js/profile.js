@@ -18,7 +18,6 @@ $(document).ready(function() {
 	    $('li').removeClass('active');
 	    $(this).addClass('active');
    	}
-
    });
 
 	$('.changeProfilePic').click(function(e) {

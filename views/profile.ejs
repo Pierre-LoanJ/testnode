@@ -26,9 +26,8 @@
 			
 			<div class="profile-userpic">
 			<!--"http://keenthemes.com/preview/metronic/theme/assets/admin/pages/media/profile/profile_user.jpg"-->
-				<img src="uploads/profile.jpg" id="profilePic" class="img-responsive" alt="">
+				<img src="uploads/profile_<%= userId %>.jpg" id="profilePic" class="img-responsive" alt="">
 			</div>
-
 			
 			<div class="profile-usertitle">
 				<div class="profile-usertitle-name">
@@ -74,7 +73,7 @@
 			</div>
 		</div>
        
-        <div class="col-sm-6">
+        <div class="col-sm-4">
             <div class="overview-bloc">
                 <h3><span class="fa fa-check"></span> Profile infos</h3>
                     <p>
@@ -85,7 +84,6 @@
                         <strong>job</strong>: <%= user.local.job %><br>
                     </p>
             </div>
-
 
             <div class="settings-bloc">
             	<form action="/profile/infos/update" method="post">
@@ -106,8 +104,8 @@
 </div>
 <div class="modal fade" id="photoUploader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
-	    <div class="modal-content">
-	        <div class="modal-header">
+	    <!--div class="modal-content"-->
+	        <!--div class="modal-header"-->
     			<div class="row">
       				<div class="col-xs-12">
       					<div class="panel panel-default">
@@ -124,8 +122,8 @@
       					</div>
       				</div>
     			</div>
-			</div>
-	    </div>
+			
+	    
 	  </div>
   </div>
 <input id="upload-input" type="file" name="uploads[]" multiple="multiple"></br>

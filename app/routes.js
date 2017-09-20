@@ -32,6 +32,13 @@ module.exports = function(app, passport) {
         failureRedirect : '/login', // redirect back to the signup page if there is an error
         failureFlash : true // allow flash messages
     }));
+     // =====================================
+    // LOGOUT ==============================
+    // =====================================
+    app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+    });
     // =====================================
     // SIGNUP ==============================
     // =====================================
@@ -55,17 +62,23 @@ module.exports = function(app, passport) {
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user, // get the user out of session and pass to template
+            userId : req.session.passport.user
         });
     });
 
-    // =====================================
-    // LOGOUT ==============================
-    // =====================================
-    app.get('/logout', function(req, res) {
-        req.logout();
-        res.redirect('/');
+    app.get('/profile/userProfilePicture', isLoggedIn, function(req, res) {
+        var id = req.session.passport.user;
+        var data = {
+            userProfilePicture : id
+        };
+        //res.writeHead(200, {"Content-Type": "text/plain"});
+        //res.json(data);
+        res.send(data);
+        res.end();
     });
+
+   
    /* app.get('/profile/photo', function(req, res){
         res.render();
     });*/
@@ -75,16 +88,58 @@ module.exports = function(app, passport) {
       var form = new formidable.IncomingForm();
 
       // specify that we want to allow the user to upload multiple files in a single request
-      form.multiples = true;
+      form.multiples = false;
 
       // store all uploads in the /uploads directory
       form.uploadDir = path.join('.', 'public/uploads');
 
       // every time a file has been uploaded successfully,
       // rename it to it's orignal name
-      form.on('file', function(field, file) {
-        fs.rename(file.path, path.join(form.uploadDir, "profile.jpg"));
-      });
+      // parse the incoming request containing the form data
+      form.parse(req);
+      var id = req.session.passport.user;
+        form.on('file', function(field, file) {
+            fs.rename(file.path, path.join(form.uploadDir, "/profile_" + id + ".jpg"));
+        });
+
+        var imgData = fs.readFileSync(form.uploadDir + "/profile_" + id + ".jpg");
+        var imgContentType = 'image/jpg';
+        /*User.save(function (err, User) {
+             if (err) throw err;
+        });*/        
+
+        
+        User.findOne({ '_id' :  id }, function(err, res) {
+            // if there are any errors, return the error
+            if (err){
+                logger.error('/profile/upload/photo ', ' User.findOne ERROR', ' err=' + err);  // NE LOG PAS 
+                return done(err);
+
+            }
+  // check if document exists
+            if (res) {
+                logger.debug('/profile/upload/photo ', ' User.findOne ', ' res=' + res);
+                res.local.img    = imgData;
+                try {
+                    res.save(function(err) {
+                        if (err)
+                            logger.error('ERROR', 'save failed', 'err:' + err);
+                        else
+                            logger.info('Profile picture has been uploaded');
+                            
+                        });   
+                }
+                catch(exception){
+
+                }
+            }
+                 else {
+                    logger.warn('/profile/upload/photo ', ' User.findOne ', ' no res=' + res);
+                    return done(null, false, req.flash('user retrieve', 'no user found for update'));
+            }
+        });
+        res.send({userProfilePicture : id});
+        res.end();
 
       // log any errors that occur
       form.on('error', function(err) {
@@ -93,14 +148,13 @@ module.exports = function(app, passport) {
 
       // once all the files have been uploaded, send a response to the client
       form.on('end', function() {
+        logger.warn('/profile/upload/photo ', ' OK ');
         //res.redirect('/');
         res.end('success');
       });
-
-      // parse the incoming request containing the form data
-      form.parse(req);
-
     });
+
+
      app.post('/profile/infos/update', function(req, res){
 
         var name = req.body.name;
@@ -112,7 +166,7 @@ module.exports = function(app, passport) {
         User.findOne({ '_id' :  id }, function(err, res) {
             // if there are any errors, return the error
             if (err){
-logger.error('/profile/infos/update ', ' User.findOne ERROR', ' err=' + err);  // NE LOG PAS 
+                logger.error('/profile/infos/update ', ' User.findOne ERROR', ' err=' + err);  // NE LOG PAS 
                 return done(err);
 
             }
@@ -138,8 +192,6 @@ logger.error('/profile/infos/update ', ' User.findOne ERROR', ' err=' + err);  /
         res.redirect('/profile');
     });
 };
-
-
 
 // route middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
